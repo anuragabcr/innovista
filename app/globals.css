@@ -103,9 +103,9 @@ body {
 } */
 
 /* Footer */
-/* .footer {
+.footer {
   @apply flex-col paddings w-full gap-20 bg-light-white;
-} */
+}
 
 .footer_copyright {
   @apply max-sm:flex-col w-full text-sm font-normal;
@@ -130,14 +130,14 @@ body {
 }
 
 /* Navbar */
-/* .navbar {
+.navbar {
   @apply py-5 px-8 border-b border-nav-border gap-4;
-} */
+}
 
 /* Profile Menu */
-/* .profile_menu-items {
+.profile_menu-items {
   @apply flex-col absolute right-1/2 translate-x-1/2 mt-3 p-7 sm:min-w-[300px] min-w-max rounded-xl bg-white border border-nav-border shadow-menu;
-} */
+}
 
 /* Profile Card */
 .profile_card-title {
