@@ -68,9 +68,9 @@ body {
 }
 
 /* Project Actions */
-/* .edit-action_btn {
+.edit-action_btn {
   @apply p-3 text-gray-100 bg-light-white-400 rounded-lg text-sm font-medium;
-} */
+}
 
 .delete-action_btn {
   @apply p-3 text-gray-100 hover:bg-red-600 rounded-lg text-sm font-medium;
@@ -90,17 +90,17 @@ body {
 }
 
 /* Custom Menu */
-/* .custom_menu-btn {
+.custom_menu-btn {
   @apply gap-4 w-full rounded-md bg-light-white-100 p-4 text-base outline-none capitalize;
-} */
+}
 
-/* .custom_menu-items {
+.custom_menu-items {
   @apply flex-col absolute left-0 mt-2 xs:min-w-[300px] w-fit max-h-64 origin-top-right rounded-xl bg-white border border-nav-border shadow-menu overflow-y-auto;
-} */
+}
 
-/* .custom_menu-item {
+.custom_menu-item {
   @apply text-left w-full px-5 py-2 text-sm hover:bg-light-white-100 self-start whitespace-nowrap capitalize;
-} */
+}
 
 /* Footer */
 .footer {
@@ -116,9 +116,9 @@ body {
 }
 
 /* Form Field */
-/* .form_field-input {
+.form_field-input {
   @apply w-full outline-0 bg-light-white-100 rounded-xl p-4;
-} */
+}
 
 /* Modal */
 .modal {
