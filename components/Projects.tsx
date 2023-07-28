@@ -29,7 +29,7 @@ const Projects = () => {
       setProjects(data?.edges);
     };
     fetchData();
-  });
+  }, []);
 
   if (projects.length === 0) {
     return (

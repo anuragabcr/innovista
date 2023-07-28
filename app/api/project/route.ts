@@ -1,4 +1,4 @@
-import { createNewProject } from "@/lib/actions";
+import { createNewProject, getProjectDetails } from "@/lib/actions";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
 
   if (!creatorId || !form) {
     return NextResponse.json(
-      { message: "Image path is required" },
+      { message: "Form Data is required" },
       { status: 400 }
     );
   }
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const result = await createNewProject(form, creatorId);
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    console.log("Image upload error:- ", error);
+    console.log("Project creation error:- ", error);
     return NextResponse.json(error, { status: 500 });
   }
 }

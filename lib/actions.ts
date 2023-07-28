@@ -118,3 +118,55 @@ export const fetchAllProjects = async (
     throw error;
   }
 };
+
+export const getProjectDetails = async (id: string) => {
+  try {
+    const project = await prisma.project.findUnique({
+      where: { id },
+      include: {
+        createdBy: true,
+      },
+    });
+
+    return project;
+  } catch (error) {
+    console.error("Error fetching project details:", error);
+    throw error;
+  }
+};
+
+export const deleteProject = async (id: string) => {
+  try {
+    const deletedProject = await prisma.project.delete({
+      where: { id },
+    });
+
+    return deletedProject;
+  } catch (error) {
+    console.error("Error deleting project:", error);
+    throw error;
+  }
+};
+
+export const getUserProjects = async (id: string, last?: number) => {
+  try {
+    const userWithProjects = await prisma.user.findUnique({
+      where: { id },
+      include: {
+        projects: {
+          take: last,
+          select: {
+            id: true,
+            title: true,
+            image: true,
+          },
+        },
+      },
+    });
+
+    return userWithProjects?.projects;
+  } catch (error) {
+    console.error("Error fetching user projects:", error);
+    throw error;
+  }
+};
