@@ -87,3 +87,34 @@ export const createNewProject = async (
     throw error;
   }
 };
+
+export const fetchAllProjects = async (
+  category?: string | null,
+  endcursor?: string | null
+) => {
+  try {
+    const projects = await prisma.project.findMany({
+      where: {
+        category: category ? { equals: category } : undefined,
+      },
+      take: 8,
+      skip: endcursor ? 1 : 0,
+      cursor: endcursor ? { id: endcursor } : undefined,
+      include: {
+        createdBy: true,
+      },
+    });
+
+    const pageInfo = {
+      hasNextPage: projects.length === 8,
+      hasPreviousPage: !!endcursor,
+      startCursor: projects.length ? projects[0].id : null,
+      endCursor: projects.length ? projects[projects.length - 1].id : null,
+    };
+
+    return { pageInfo, edges: projects };
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error;
+  }
+};
