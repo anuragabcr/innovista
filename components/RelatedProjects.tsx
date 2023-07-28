@@ -23,7 +23,7 @@ const RelatedProjects = ({ userId, projectId, name }: Props) => {
       setProjects(data);
     };
     fetchData();
-  }, []);
+  }, [userId]);
 
   if (projects?.length === 0) return <div>Loading</div>;
 

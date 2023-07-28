@@ -88,6 +88,39 @@ export const createNewProject = async (
   }
 };
 
+export const updateProject = async (form: ProjectForm, projectId: string) => {
+  try {
+    const isBase64DataURL = (value: string) => {
+      const base64Regex = /^data:image\/[a-z]+;base64,/;
+      return base64Regex.test(value);
+    };
+
+    let updatedForm = { ...form };
+
+    const isUploadingNewImage = isBase64DataURL(form.image);
+
+    if (isUploadingNewImage) {
+      const imageUrl = await uploadImage(form.image);
+
+      if (!imageUrl) {
+        throw new Error("Failed to upload image");
+      }
+
+      updatedForm = { ...updatedForm, image: imageUrl };
+    }
+
+    const updatedProject = await prisma.project.update({
+      where: { id: projectId },
+      data: updatedForm,
+    });
+
+    return updatedProject;
+  } catch (error) {
+    console.error("Error updating project:", error);
+    throw error;
+  }
+};
+
 export const fetchAllProjects = async (
   category?: string | null,
   endcursor?: string | null

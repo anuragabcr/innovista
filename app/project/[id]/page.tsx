@@ -26,7 +26,7 @@ const Project = ({ params: { id } }: { params: { id: string } }) => {
       setSession(session);
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   if (!project) {
     return (

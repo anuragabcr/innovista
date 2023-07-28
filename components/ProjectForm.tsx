@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { SessionInterface } from "@/common.types";
+import { ProjectInterface, SessionInterface } from "@/common.types";
 import FormField from "./FormField";
 import CustomMenu from "./CustomMenu";
 import { categoryFilters } from "@/constants";
@@ -12,18 +12,19 @@ import Button from "./Button";
 type props = {
   type: string;
   session: SessionInterface;
+  project?: ProjectInterface;
 };
 
-const ProjectForm = ({ type, session }: props) => {
+const ProjectForm = ({ type, session, project }: props) => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
-    image: "",
-    title: "",
-    description: "",
-    liveSiteUrl: "",
-    githubUrl: "",
-    category: "",
+    image: project?.image || "",
+    title: project?.title || "",
+    description: project?.description || "",
+    liveSiteUrl: project?.liveSiteUrl || "",
+    githubUrl: project?.githubUrl || "",
+    category: project?.category || "",
   });
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -36,6 +37,17 @@ const ProjectForm = ({ type, session }: props) => {
           const response = await fetch(`/api/project`, {
             method: "POST",
             body: JSON.stringify({ form, creatorId: session.user.id }),
+          });
+        } catch (error) {
+          console.log(error);
+        }
+        router.push("/");
+      }
+      if (type === "edit") {
+        try {
+          const response = await fetch(`/api/project`, {
+            method: "PUT",
+            body: JSON.stringify({ form, projectId: project?.id }),
           });
         } catch (error) {
           console.log(error);
