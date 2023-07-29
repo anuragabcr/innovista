@@ -1,14 +1,16 @@
+"use client";
 import { NavLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import AuthProviders from "./AuthProviders";
-import { getCurrentUser } from "@/lib/session";
 import ProfileMenu from "./ProfileMenu";
+import { SessionInterface } from "@/common.types";
 
-const Header = async () => {
-  const session = await getCurrentUser();
+const Header = () => {
+  const { data: session, status } = useSession();
 
   return (
     <nav className="flexBetween navbar">
@@ -27,7 +29,7 @@ const Header = async () => {
       <div className="flexCenter gap-4">
         {session?.user ? (
           <>
-            <ProfileMenu session={session} />
+            <ProfileMenu session={session as SessionInterface} />
             <Link href="/create-project">Share Work</Link>
           </>
         ) : (

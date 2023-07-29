@@ -2,15 +2,16 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 import Modal from "@/components/Modal";
 import RelatedProjects from "@/components/RelatedProjects";
 import ProjectActions from "@/components/ProjectActions";
-import { getCurrentUser } from "@/lib/session";
+
 import { ProjectInterface, SessionInterface } from "@/common.types";
 
 const Project = ({ params: { id } }: { params: { id: string } }) => {
-  const [session, setSession] = useState<SessionInterface>();
+  const { data: session, status } = useSession();
   const [project, setProject] = useState<ProjectInterface>();
   const renderLink = () => `/profile/${project?.createdBy?.id}`;
 
@@ -21,9 +22,6 @@ const Project = ({ params: { id } }: { params: { id: string } }) => {
       });
       const data = await response.json();
       setProject(data);
-      const sessionData = await fetch(`/api/user`);
-      const session = await sessionData.json();
-      setSession(session);
     };
     fetchData();
   }, [id]);

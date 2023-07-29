@@ -1,4 +1,5 @@
 import { getServerSession } from "next-auth/next";
+import { getSession } from "next-auth/react";
 import { NextAuthOptions, User } from "next-auth";
 // import { AdapterUser } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
@@ -78,8 +79,8 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export async function getCurrentUser() {
-  const session = (await getServerSession(authOptions)) as SessionInterface;
+// export async function getCurrentUser() {
+//   const session = (await getServerSession(authOptions)) as SessionInterface;
 
-  return session;
-}
+//   return session;
+// }

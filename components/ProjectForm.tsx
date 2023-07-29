@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import { ProjectInterface, SessionInterface } from "@/common.types";
 import FormField from "./FormField";
@@ -11,11 +12,11 @@ import Button from "./Button";
 
 type props = {
   type: string;
-  session: SessionInterface;
   project?: ProjectInterface;
 };
 
-const ProjectForm = ({ type, session, project }: props) => {
+const ProjectForm = ({ type, project }: props) => {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -36,7 +37,7 @@ const ProjectForm = ({ type, session, project }: props) => {
         try {
           const response = await fetch(`/api/project`, {
             method: "POST",
-            body: JSON.stringify({ form, creatorId: session.user.id }),
+            body: JSON.stringify({ form, creatorId: session?.user?.name }),
           });
         } catch (error) {
           console.log(error);
