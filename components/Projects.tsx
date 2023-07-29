@@ -16,25 +16,25 @@ type ProjectSearch = {
   };
 };
 
-const Projects = () => {
+const Projects = ({ category }: { category?: string }) => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`/api/projects`, {
         method: "POST",
-        body: JSON.stringify({}),
+        body: JSON.stringify({ category }),
       });
       const data = await response.json();
       setProjects(data?.edges);
     };
     fetchData();
-  }, []);
+  }, [category]);
 
   if (projects.length === 0) {
     return (
       <section className="flexStart flex-col paddings">
-        Categories
+        {category}
         <p className="no-result-text text-center">
           No Projects found <br /> Go create some first
         </p>

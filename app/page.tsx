@@ -1,10 +1,20 @@
 import Projects from "@/components/Projects";
+import Categories from "@/components/Categories";
+import { type } from "os";
 
-const Home = () => {
+type SearchParams = {
+  category?: string;
+};
+
+type Props = {
+  searchParams: SearchParams;
+};
+
+const Home = ({ searchParams: { category } }: Props) => {
   return (
     <section className="flex-start flex-col paddings mb-16">
-      <h1>Categories</h1>
-      <Projects />
+      <Categories />
+      <Projects category={category} />
       <h1>Load More</h1>
     </section>
   );
