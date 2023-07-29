@@ -100,7 +100,8 @@ export const updateProject = async (form: ProjectForm, projectId: string) => {
     const isUploadingNewImage = isBase64DataURL(form.image);
 
     if (isUploadingNewImage) {
-      const imageUrl = await uploadImage(form.image);
+      const imageResponse = await uploadImage(form.image);
+      const imageUrl = imageResponse.url;
 
       if (!imageUrl) {
         throw new Error("Failed to upload image");
