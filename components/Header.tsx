@@ -2,12 +2,12 @@
 import { NavLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
 import AuthProviders from "./AuthProviders";
 import ProfileMenu from "./ProfileMenu";
 import { SessionInterface } from "@/common.types";
+import Button from "./Button";
 
 const Header = () => {
   const { data: session, status } = useSession();
@@ -30,7 +30,9 @@ const Header = () => {
         {session?.user ? (
           <>
             <ProfileMenu session={session as SessionInterface} />
-            <Link href="/create-project">Share Work</Link>
+            <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <Link href="/create-project">Share Work</Link>
+            </button>
           </>
         ) : (
           <AuthProviders />
